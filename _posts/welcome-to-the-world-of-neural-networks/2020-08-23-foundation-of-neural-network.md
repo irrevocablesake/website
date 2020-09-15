@@ -1,7 +1,7 @@
 ---
 title: Foundation of Neural Networks
 layout: post
-type: Article
+type: Series
 readtime: 7 Min
 tags: history ai neural-networks
 cdate: 23 AUG 2020
