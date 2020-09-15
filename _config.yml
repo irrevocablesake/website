@@ -1,0 +1,6 @@
+url: https://theirrevocablesake.com
+
+collections:
+  tags:
+    output: true
+    permalink: tags/:path/

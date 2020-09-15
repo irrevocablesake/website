@@ -1,0 +1,359 @@
+html,body
+{
+    font-family: 'Inter', sans-serif;
+    background-color:var(--theme-background);
+}
+
+.subscribe-heading
+{
+    font-weight:800;
+    color:var(--heading);
+}
+
+.active-pink-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid #f48fb1;
+    box-shadow: 0 0 0 1px #f48fb1;
+  }
+  .active-pink-3 input[type=text] {
+    border: 1px solid #f48fb1;
+    box-shadow: 0 0 0 1px #f48fb1;
+  }
+  .emailinput
+  {
+      background-color:var(--theme-background);
+      color:var(--emailinputfontcolor);
+  }
+  .emailinput:hover
+  {
+      background-color:var(--theme-background);
+      color:var(--emailinputfontcolor);
+  }
+  .emailinput:focus
+  {
+      background-color:var(--theme-background);
+      color:var(--emailinputfontcolor);
+  }
+  a
+{
+    color:var(--font);
+}
+a:hover
+{
+    color:var(--font);
+}
+nav
+{
+    box-shadow: var(--box-shadow);
+    background-color: var(--navbar-background);
+}
+@media screen and (min-width:150px)
+{
+    .subscribe-heading
+    {
+        font-size:2rem;
+    }   
+    .holder
+    {
+        margin-top:35%;
+        margin-left:2%;
+        margin-right:2%;
+    }
+    .emailinput
+    {
+        width:50%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .theme-selector
+    {
+        height:40px;
+        width:40px;
+    }
+    #sun
+    {
+        display:none;
+    }
+    #moon
+    {
+        display: block;
+    }
+}
+@media screen and (min-width:350px)
+{
+    .subscribe-heading
+    {
+        font-size:2rem;
+    }   
+    .holder
+    {
+        margin-top:30%;
+        margin-left:2%;
+        margin-right:2%;
+    }
+    .emailinput
+    {
+        width:50%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .theme-selector
+    {
+        height:40px;
+        width:40px;
+    }
+    #sun
+    {
+        display:none;
+    }
+    #moon
+    {
+        display: block;
+    }
+}
+@media screen and (min-width:576px)
+{
+    .subscribe-heading
+    {
+        font-size:2rem;
+    }   
+    .holder
+    {
+        margin-top:30%;
+        margin-left:2%;
+        margin-right:2%;
+    }
+    .emailinput
+    {
+        width:50%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .theme-selector
+    {
+        height:40px;
+        width:40px;
+    }
+    #sun
+    {
+        display:none;
+    }
+    #moon
+    {
+        display: block;
+    }
+}
+@media screen and (min-width:768px)
+{
+    .subscribe-heading
+    {
+        font-size:2rem;
+    }   
+    .holder
+    {
+        margin-top:22%;
+        margin-left:2%;
+        margin-right:2%;
+    }
+    .emailinput
+    {
+        width:50%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .theme-selector
+    {
+        height:40px;
+        width:40px;
+    }
+    #sun
+    {
+        display:none;
+    }
+    #moon
+    {
+        display: block;
+    }
+}
+@media screen and (min-width:992px)
+{
+    .subscribe-heading
+    {
+        font-size:2rem;
+    }   
+    .holder
+    {
+        margin-top:15%;
+        margin-left:2%;
+        margin-right:2%;
+    }
+    .emailinput
+    {
+        width:50%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .theme-selector
+    {
+        height:40px;
+        width:40px;
+    }
+    #sun
+    {
+        display:none;
+    }
+    #moon
+    {
+        display: block;
+    }
+}
+@media screen and (min-width:1200px)
+{
+    .subscribe-heading
+    {
+        font-size:2rem;
+    }   
+    .holder
+    {
+        margin-top:15%;
+        margin-left:2%;
+        margin-right:2%;
+    }
+    .emailinput
+    {
+        width:50%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .theme-selector
+      {
+          height:40px;
+          width:40px;
+      }
+      #sun
+      {
+          display:none;
+      }
+      #moon
+      {
+          display: block;
+      }
+      .theme-selector
+      {
+          height:40px;
+          width:40px;
+      }
+      #sun
+      {
+          display:none;
+      }
+      #moon
+      {
+          display: block;
+      }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* The Nav bar night mode toggle button */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 25px;
+    margin-top:7px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-color:#707070;
+    border-width: 1.5px;
+    border-style:solid;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    top:3px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fde840;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2f2f2f;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+    
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(13px);
+    background-color:#464545;
+}
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+/* The Nav bar toggle button */

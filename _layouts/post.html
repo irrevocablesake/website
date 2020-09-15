@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/post/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167964616-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167964616-2');
+</script>
+
+    <title>{{ page.title }}</title>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="https://theirrevocablesake.com/">TheIrrevocableSake</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="https://theirrevocablesake.com/article.html">Articles</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">Writing</a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="https://ko-fi.com/theirrevocablesake">Ko-fi</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">Projects</a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/irrevocablesake">Github</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../../../subscribe.html">Subscribe</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">CG</a>
+            </li> -->
+            <!-- <li class="nav-item">
+              <label class="switch">
+                <input id="theme_toggle_button" onclick="theme_toggler()" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </li> -->
+          </ul>
+        </div>
+      </nav>
+
+
+      <div class="authorSection" id="authorSectionId">
+
+        <div class="holder">
+          <h1>{{page.title}}</h1>
+         
+          <h2>Contents</h2>
+          <div id="toc"></div>
+       
+            <div class="pc-desc">
+            <hr>
+            <span><b>Published On :</b> {{ page.cdate }}</span>
+            <br>
+            <span><b>Read Time :</b> {{ page.readtime }}</span>
+            <br>
+            <span><b>Author : </b>{{page.author}}</span>
+            <div class="tags_holder" style="display:flex; " class="mt-4">
+              {% for tag in page.tags %}
+              <a class="tag-link"
+    href={{ site.baseurl | append: "/tags/" | append: tag | append: "/" }}
+    rel="category tag">
+                <span class="badge badge-dark tag-size">{{ tag }}</span>
+          </a>    {% endfor %}
+          </div>
+          <div class="tag_holder_bottom"></div>
+        </div>
+          </div>
+
+
+
+
+      </div>
+      <div class="contentSection" id="contentSectionId">{{ content }} 
+        <h2>Comments</h2><hr class="separator"><script
+        async
+        src="https://utteranc.es/client.js"
+        repo="irrevocableSake/comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+      ></script>
+    <!-- <h2>You Might Like</h2><hr class="separator">
+    <div class="youmightlikesection">
+      <div class="first"><b>Game Development</b></div>
+      <div class="second"><b>Music Production</b></div>
+    </div> -->
+    <div class="poweredby">
+      <a href="https://icons8.com/"><img src="/assets/images/powerdby/icons8.png" title="Logo Destination" alt="icons8 logo" /></a>
+      <a href="https://jekyllrb.com/"><img src="/assets/images/powerdby/jekyll.png" title="Built with Jekyll" alt="jekyll logo" /></a>
+      <a href="https://github.com/irrevocablesake"><img src="/assets/images/powerdby/octocat.png" title="Open Source on Github" alt="octocat logo" /></a>
+      <a href="https://twitter.com/IrrevocableThe"><img src="/assets/images/powerdby/twitter.png" title="Follow on twitter" alt="twitter logo" /></a>
+      <a href="https://www.netlify.com/"><img src="/assets/images/powerdby/netlify.png" title="Hosted on Netlify" alt="netlify logo" /></a>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/assets/js/post/index.js"></script>
+</body>
+</html>
