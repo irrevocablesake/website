@@ -306,7 +306,7 @@ ul.custom li.summary:before { content: "3. "; } */
   }
 }
 
-@media screen and (max-width:1200px)
+@media screen and (max-width:1366px)
 {
   ::-webkit-scrollbar {
    display:none;
@@ -460,7 +460,7 @@ ul.custom li.summary:before { content: "3. "; } */
     }
 }
 
-@media screen and (min-width:1201px)
+@media screen and (min-width:1367px)
 {
   .contentSection h1{
     padding-top:5%;
