@@ -133,6 +133,8 @@
 
 <p>Hope you enjoy the read!</p>
 
+<p><b>Note :</b> The source code for this program can be found on the following link : <a href="https://github.com/irrevocablesake/Gradient-Themed-Maze-Generator">Github Link</a></p>
+
 <h2 id="analogy">Analogy</h2>
 <hr class="separator" />
 
@@ -581,7 +583,7 @@ unsigned char cell = 0b0000'1111</code></pre>
 <p>There is another optimization we can do, and that is related to the representation of the maze</p>
 
 <h4 id="representation">Representation</h4>
-<p>We want a grid to work with and that can be done using <b>static</b> 2d array / multidimensional array but since static array has scope limitations, we need to use <b>dynamic 2d array</b>. But doing this would cause a lot of <b>fragmented memory</b>, which is bad cause it’s going to affect the efficiency of our program, cause every new row of the grid would be located at a new location, and to overcome this we can use a <b>dynamic 1d array</b>, we will represent a 2d grid into 1d array :</p>
+<p>We want a grid to work with and that can be done using <b>static</b> 2d array / multidimensional array but since static array has scope limitations, we need to use <b>dynamic 2d array</b>. But doing this would cause a lot of <b>fragmented memory</b>, which is bad cause it’s going to affect the efficiency of our program, cause every new row of the grid would be located at a new location, and to overcome this we can use a <b>dynamic 1d array</b>, we will represent a 2d grid into 1d array like this:</p>
 
 <pre><code class="language-cpp">
 0  1  2  3       
@@ -604,6 +606,8 @@ Likewise we can just store the 2d grid as a 1d array by rearraging the original 
 // which means that the element 6 is at 6th position in the 1d array. 
 </code></pre>
 <p>This would give us a few advantages too like caching of memory and a more compact memory and hence a faster program.</p>
+
+<p>If we use dynamic array we have to manually allocate and deallocate memory, which is quite a hassle, so for that reason we use a container for dynamic array, also known as “<b>Vector</b>”.</p>
 
 <p>This should be enough optimizations for the program and we can start now.</p>
 

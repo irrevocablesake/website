@@ -559,7 +559,7 @@ ul.custom li.summary:before { content: "3. "; } */
   
   
   .contentSection p{
-    font-size:1.4rem !important;
+    font-size:1.25rem !important;
     line-height:29px;
     font-weight:400 !important;
     padding-top:5px;
