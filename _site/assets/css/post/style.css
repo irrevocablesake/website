@@ -271,6 +271,10 @@ ul.custom li.summary:before { content: "3. "; } */
 
 @media screen and ( max-width:700px )
 {
+  .toc
+  {
+    font-size:0.95rem !important;
+  }
   .contentSection p{
     font-size:0.95rem !important;
   }
@@ -306,6 +310,11 @@ ul.custom li.summary:before { content: "3. "; } */
 {
   ::-webkit-scrollbar {
    display:none;
+  }
+
+  .toc
+  {
+    font-size:1.07rem !important;
   }
 
  .leftImage
@@ -399,7 +408,7 @@ ul.custom li.summary:before { content: "3. "; } */
     {
       display:block;
       font-weight:800;
-      font-size:2.3rem;
+      font-size:2.3rem !important;
     }
     .authorSection h2
     {
@@ -415,37 +424,35 @@ ul.custom li.summary:before { content: "3. "; } */
 .contentSection h2{
   padding-top:5%;
   font-weight:800;
-  font-size:2rem;
+  font-size:2rem !important;
 }
 
 .contentSection h3{
   padding-top:8%;
   font-weight:800;
-  font-size:1.7rem;
+  font-size:1.7rem !important;
 }
 
 .contentSection h4{
   padding-top:1%;
   font-weight:700;
-  font-size:1.4rem;
+  font-size:1.4rem !important;
 }
 
 .contentSection h5{
   padding-top:1%;
   font-weight:600;
-  font-size:1.2rem;
+  font-size:1.2rem !important;
 }
 
 .contentSection p{
-  font-size:1.07rem;
+  font-size:1.07rem !important;
   line-height:29px;
   font-weight:500;
   padding-top:5px;
   color:rgb(82, 82, 82);
   padding-bottom:5px;
 }
-
-
     .poweredby
     {
         padding-top:30%;
@@ -453,53 +460,58 @@ ul.custom li.summary:before { content: "3. "; } */
     }
 }
 
-@media screen and( min-width:1201px )
+@media screen and (min-width:1201px)
 {
   .contentSection h1{
     padding-top:5%;
     font-weight:900;
-    font-size:3.6rem;
+    font-size:3.6rem !important;
     padding-bottom:0%;
   }
-  
+
   .contentSection h2{
     padding-top:5%;
     font-weight:800;
-    font-size:3.2rem;
+    font-size:3.2rem !important;
   }
   
   .contentSection h3{
     padding-top:5%;
     font-weight:600;
-    font-size:2.8rem;
+    font-size:2.8rem !important;
   }
   
   .contentSection h4{
     padding-top:1%;
     font-weight:600;
-    font-size:2.5rem;
+    font-size:2.5rem !important;
   }
   
   .contentSection h5{
     padding-top:1%;
     font-weight:500;
-    font-size:2.1rem;
+    font-size:2.1rem !important;
   }
   
   .contentSection h6{
     padding-top:1%;
     font-weight:500;
-    font-size:1.7rem;
+    font-size:1.7rem !important;
   }
   
   
   .contentSection p{
-    font-size:1.2rem;
+    font-size:1.4rem !important;
     line-height:29px;
     font-weight:500;
     padding-top:5px;
     color:rgb(82, 82, 82);
     padding-bottom:5px;
+  }
+
+  .toc
+  {
+    font-size:1.2rem !important;
   }
 }
 

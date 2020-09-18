@@ -460,7 +460,7 @@ ul.custom li.summary:before { content: "3. "; } */
     }
 }
 
-@media screen and( min-width:1201px )
+@media screen and (min-width:1201px)
 {
   .contentSection h1{
     padding-top:5%;
@@ -468,7 +468,7 @@ ul.custom li.summary:before { content: "3. "; } */
     font-size:3.6rem !important;
     padding-bottom:0%;
   }
-  
+
   .contentSection h2{
     padding-top:5%;
     font-weight:800;
@@ -501,7 +501,7 @@ ul.custom li.summary:before { content: "3. "; } */
   
   
   .contentSection p{
-    font-size:10.2rem !important;
+    font-size:1.4rem !important;
     line-height:29px;
     font-weight:500;
     padding-top:5px;
