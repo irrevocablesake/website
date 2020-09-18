@@ -3,7 +3,7 @@ title: DFS Gradient Themed Maze Generator
 layout: post
 type: Series
 readtime: 27 Min
-tags: Maze DFS
+tags: Maze DFS Programming
 cdate: 18 SEP 2020
 author: Pratik Hadawale
 permalink: blog/series/maze-generator/ep1/
@@ -71,11 +71,11 @@ Depth First Search is a method that is largely related to <b>Tree</b> and <b>Gra
 
 A lot of people get confused, with DFS and Backtracking, so before going deep in with the explanations, let's learn what backtracking is.
 
-Backtracking is a method, one can say that it's a special case of DFS, where we check for certain constraints early on, hence making the program efficient and faster, in which one can find many or some of the possible solutions for a certain problem. It works by building up solutions that might lead to our final answer and if at any stage it finds that a certain solution won't lead to a final answer then it abandons it, without trying any further for the current possible solution.
+Backtracking is a method, one can say that it's a special case of DFS, where we check for certain constraints early on, hence making the program efficient and faster, using this algorithm one can find many or some of the possible solutions for a certain problem. It works by building up solutions that might lead to our final answer and if at any stage it finds that a certain solution won't lead to a final answer then it abandons it, without trying any further for the current possible solution.
 
 ### What is the difference between DFS and Backtracking?
 
-Backtracking is more like a special case of DFS, which works out by ruling out the situations, early on, that won't yield a result, while in the situation DFS, won't check for the constraints and keep moving forward.
+Backtracking is more like a special case of DFS, which works out by ruling out the situations, early on, that won't yield a result, while in the same situation DFS, won't even check for the constraints and keep moving forward.
 
 Let's imagine this difference in terms of solving <b>Sudoku grids</b>. DFS in this case would be like a crazy maniac who would keep filling all of the squares completely and at the end, if it does not find the solution, then it would discard it entirely and start with some other solution.
 
