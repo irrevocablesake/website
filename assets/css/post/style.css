@@ -262,6 +262,19 @@ ul.custom li.summary:before { content: "3. "; } */
       width:47%;
     }
 
+@media screen and ( max-width:480px )
+{
+  .contentSection p{
+    font-size:1rem !important;
+    line-height:29px;
+    font-weight:500;
+    padding-top:5px;
+    color:rgb(82, 82, 82);
+    padding-bottom:5px;
+  }
+  
+}
+
 @media screen and (max-width:1069px)
 {
   ::-webkit-scrollbar {
