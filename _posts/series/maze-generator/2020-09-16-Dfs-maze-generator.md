@@ -443,7 +443,7 @@ let's calculate the memory usage for this, so <b>100000000</b> cells <b>1 byte</
 There is another optimization we can do, and that is related to the representation of the maze
 
 #### Representation
-We want a grid to work with and that can be done using <b>static</b> 2d array / multidimensional array but since static array has scope limitations, we need to use <b>dynamic 2d array</b>. But doing this would cause a lot of <b>fragmented memory</b>, which is bad cause it's going to affect the efficiency of our program, cause every new row of the grid would be located at a new location, and to overcome this we can use a <b>dynamic 1d array</b>, we will represent a 2d grid into 1d array :
+We want a grid to work with and that can be done using <b>static</b> 2d array / multidimensional array but since static array has scope limitations, we need to use <b>dynamic 2d array</b>. But doing this would cause a lot of <b>fragmented memory</b>, which is bad cause it's going to affect the efficiency of our program, cause every new row of the grid would be located at a new location, and to overcome this we can use a <b>dynamic 1d array</b>, we will represent a 2d grid into 1d array like this:
 
 <pre><code class="language-cpp">
 0  1  2  3       
@@ -466,6 +466,8 @@ Likewise we can just store the 2d grid as a 1d array by rearraging the original 
 // which means that the element 6 is at 6th position in the 1d array. 
 </code></pre>
 This would give us a few advantages too like caching of memory and a more compact memory and hence a faster program.
+
+If we use dynamic array we have to manually allocate and deallocate memory, which is quite a hassle, so for that reason we use a container for dynamic array, also known as "<b>Vector</b>".
 
 This should be enough optimizations for the program and we can start now.
 
