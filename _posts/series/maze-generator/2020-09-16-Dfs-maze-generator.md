@@ -35,7 +35,7 @@ Feel free to skip around!
 
 Hope you enjoy the read!
 
-<b>Note :</b> The source code for this program can be found on the following link : https://github.com/irrevocablesake/Gradient-Themed-Maze-Generator/blob/master/LICENSE
+<b>Note :</b> The source code for this program can be found on the following link : <a href="https://github.com/irrevocablesake/Gradient-Themed-Maze-Generator">Github Link</a>
 
 ## Analogy
 <hr class="separator">
