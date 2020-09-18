@@ -1,16 +1,15 @@
 ---
-title: DFS Maze Generator
+title: DFS Gradient Themed Maze Generator
 layout: post
 type: Series
-readtime: 7 Min
+readtime: 27 Min
 tags: Maze DFS
-cdate: 16 SEP 2020
+cdate: 18 SEP 2020
 author: Pratik Hadawale
 permalink: blog/series/maze-generator/ep1/
 ---
 
 # DFS Gradient Themed Maze Generator
-<hr class="separator">
  
 <img class="bigImage" src="/assets/images/series/maze-generator/ep1/main_gif.gif" />
 

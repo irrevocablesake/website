@@ -52,33 +52,40 @@ body,html
 .contentSection h1{
   padding-top:5%;
   font-weight:900;
-  font-size:3rem;
+  font-size:3.5rem;
   padding-bottom:0%;
 }
 
 .contentSection h2{
   padding-top:5%;
   font-weight:800;
-  font-size:2.7rem;
+  font-size:3rem;
 }
 
 .contentSection h3{
   padding-top:5%;
-  font-weight:800;
-  font-size:2.3rem;
+  font-weight:600;
+  font-size:2.4rem;
 }
 
 .contentSection h4{
   padding-top:1%;
-  font-weight:700;
+  font-weight:600;
   font-size:1.9rem;
 }
 
 .contentSection h5{
   padding-top:1%;
-  font-weight:600;
-  font-size:1.7rem;
+  font-weight:500;
+  font-size:1.6rem;
 }
+
+.contentSection h6{
+  padding-top:1%;
+  font-weight:500;
+  font-size:1.2rem;
+}
+
 
 .contentSection p{
   font-size:1.07rem;
@@ -271,8 +278,7 @@ ul.custom li.summary:before { content: "3. "; } */
     padding-top:5px;
     color:rgb(82, 82, 82);
     padding-bottom:5px;
-  }
-  
+  }  
 }
 
 @media screen and (max-width:1069px)
