@@ -14,33 +14,34 @@ permalink: blog/series/maze-generator/ep1/
  
 <img class="bigImage" src="/assets/images/series/maze-generator/ep1/main_gif.gif" />
 
-Mazes, mazes, and mazes they are fun to solve, easy but require attention and patience, and more than that they are a good way of passing time. You can draw one right now, but it's going to take a few minutes.
+Mazes, mazes, and mazes are fun to solve, easy but require attention and patience, and more than that they are a good way of passing time. You can draw one right now, but it's going to take a few minutes.
 
-Today, we are going to learn how to automate the process of maze generation, we will learn to design an algorithm called "**DFS Backtracking**", lots of fancy terms in there, which is quite simple but generates pretty mazes, the visualization is fun to look at too and we will also look under the hood of the algorithm to get a good grasp on it's working. 
+Today, we are going to learn how to automate the process of maze generation, we will learn to design an algorithm called "**DFS - Depth First Search**", lots of fancy terms in there, which is quite simple but generates pretty mazes, the visualization is fun to look at too and we will also look under the hood of the algorithm to get a good grasp on it's working. 
 
-We will be designing an application in **C++** and **Sfml**, with tons of customizable features like number of rows, cols, cell size, colors etc. And we will also learn an interesting way to present those plain black border on white background mazes to something more lively like a **Gradient Maze**. So, without any further ado, Let's Go!
+We will be designing an application in **C++** and **SFML**, with tons of customizable features like fps controls, different modes and tons of other things. And we will also learn an interesting way to present those plain black on white mazes to something more lively like a **Gradient Maze**. So, without any further ado, Let's Go!
 
-This tutorial is going to be divided into three sections :
+This tutorial is going to be divided into <b>four</b> sections :
 
-- <b>Analogy</b> : In this section, we try to understand this entire maze generation / DFS algorithm thingy, through a real life example.
+- <b>Analogy</b>: Understanding through a real-life example
 
-- <b>Intuition</b> : In this section, we try to understand the working of dfs algorithm through diagrams
+- <b>Algorithms</b>: Overall working of the algorithm
 
-- <b>Programming</b> : In this section, we try to program the maze generator program
+- <b>Intuition</b>: In-depth working of the algorithm
 
-Feel free to skip around!
+- <b>Programming</b>: Programming the Maze Generator
 
+Feel free to skip around!   
 
-<i><b>Author's Note : </b>Many people would say that there are better algorithms out there for generating mazes, and yes it's true. But I treated this as a learning opportunity, and even to come to a conclusion that why other algorithms perform better than this, one should know what this algorithm does, that makes it un worthy! of using it in different situations.</i>
+<i><b>Author's Note: </b>Many people would say that there are better algorithms out there for generating mazes, and yes it's true. But I treated this as a learning opportunity, and even to come to a conclusion that why other algorithms perform better than this, one should know what this algorithm does, that makes it unworthy! of using it in different situations.</i>
 
 Hope you enjoy the read!
 
 ## Analogy
 <hr class="separator">
 
-Before we actually start with all of that Mathyy / Programmingy intensive stuff, let's try to get an analogy in here.
+Before we start with all of that Mathyy / Programming intensive stuff, let's try to get an analogy in here.
 
-" *Imagine that you are in a maze, you are exactly at the start of the maze and want to reach the end of the maze. Since, you don't know the structure of the maze, chances are that you are randomly going to choose a path and follow it. And if that path leads you to a dead end instead of just standing there, you might just retrace your steps back up to last intersection that you encountered. And if this intersection has any paths that you haven't visited yet, you would visit those, if they help you reach the end point then well and good else you just return back to the intersection. Once you have tried out all of the possible paths from this intersection, only to find out that none of these lead to the exit of the maze, chances are you would move back from this intersection to an intersection before this, that you had already transversed path. Then, since you know that none of the paths ahead of the first intersection lead to the end point, you would never visit it again.* "
+" *Imagine that you are in a maze, you are exactly at the start of the maze and want to reach the end of the maze. Since you don't know the structure of the maze, chances are that you are randomly going to choose a path and follow it. And if that path leads you to a dead-end, instead of just standing there, you might just retrace your steps back up to the last intersection that you encountered. And if that intersection has any paths that you haven't visited yet, you would visit those, if they help you reach the endpoint then well and good, else you just return to the intersection. Once you have tried out all of the possible paths from that intersection, only to find out that none of those lead to the exit of the maze, chances are you would retrace and move to some other intersection, in your already transversed path, and see if it has any path that you haven't visited yet. And you would keep doing this over and over for every intersection until you find a path.* "
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/hit_dead_end.png" /></div>
@@ -49,83 +50,107 @@ Before we actually start with all of that Mathyy / Programmingy intensive stuff,
 
 <br style="clear:both" />
 
-If we restate the above analogy in a slightly more computeristic language we would get something like this, a program made for solving mazes would start at a position, and every time it moves to a certain maze cell, it would mark it as visited and store it in the memory, but just in case if the path it is following leads to a dead end it will just retrace the maze cells, stored in it's memory, and remove them from its memory, until it finds the last intersection it encountered, in its already transversed path, and if at that intersection, there is any path that it has not transversed yet then it would follow that path, else it would return to the intersection before this one and do the same thing, until if finds the solution.
+If we restate the above analogy in a slightly more computeristic language, we would get something like this, a program made for solving mazes would start at a position, and every time it moves to a certain maze cell, it would mark it as visited and store it in the memory, but just in case if the path it is following leads to a dead end it will just retrace the maze cells, stored in its memory, and removing them from its memory at the same time, until it finds the last intersection it encountered, in its already transversed path, and if at that intersection, there is any path that it has not transversed yet, then it would follow that path, else it would return to the intersection before this one and do the same thing until it finds the solution.
 
 And this is exactly the basis of two algorithms called **DFS - Depth First Search** and **Backtracking**. In the next sections, we will have a look at the algorithms.
 
 ## Algorithms
 <hr class="separator">
 
-### Backtracking
+### What is Depth First Search a.k.a DFS?
 
-Backtracking is a generalised method in which one can find many or some of the possible solutions for a certain problem. It works by building up solutions that might lead to our final answer and if at any stage it finds that a certain solution won't lead to a final answer then it abandons it.
+Depth First Search is a method that is largely related to <b>Tree</b> and <b>Graph Data Structures</b>. It is a kind of transversal method where one starts at a parent node goes down through the vertices/children nodes until it hits a dead-end, once it hits a dead end it starts retracing back up to the point where it finds that a certain node in its already transversed path has other unvisited nodes. 
 
-For a moment, if we just go back to our analogy, we can see that if a person decides to follow a certain path, given that it might or might not lead to the exit of the maze, this tells use that he was trying to build solutions to a problem, the problem being the solving of the maze, and the solution being a path from the start point to the end point. If at any point he hit a dead end he would just retrace his steps and get to a point which would lead him to a new path, which means that he abandoned / exhausted one of the many possible solutions by trying them out.
+<div>
+<div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_first.png" /></div>
+<div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_second.png" /></div>
+</div>
 
-### Depth First Search a.k.a DFS
+<br style="clear:both" />
 
-Depth First Search is method which is largely related to tree and graph data structures. It is a kind of transversal method where one starts at a parent node goes down through the vertices / children nodes until it hits a dead end, once it hits a dead end it starts retracing back up to point where it finds that a certain node in its already transversed path has other unvisited nodes. 
+### What is Backtracking?
 
-#### What is the difference between DFS and Backtracking?
+A lot of people get confused, with DFS and Backtracking, so before going deep in with the explanations, let's learn what backtracking is.
 
-Backtracking is more like a generalised case of DFS, which works out by ruling out the situations that won't yield a result.
+Backtracking is a method, one can say that it's a special case of DFS, where we check for certain constraints early on, hence making the program efficient and faster, in which one can find many or some of the possible solutions for a certain problem. It works by building up solutions that might lead to our final answer and if at any stage it finds that a certain solution won't lead to a final answer then it abandons it, without trying any further for the current possible solution.
 
-Let's imagine this difference in terms of solving Sudoku grids. DFS in this case would be like a crazy maniac who would keep filling all of the squares completely and at the end if it does not find the solution, then it would discard it entirely and start with some other solution.
+### What is the difference between DFS and Backtracking?
 
-While Backtracking would work smartly by placing some constraint in place, like at each stage, when it fills a number, it would check if it's a valid move, if it is then, it will move on to the next unfilled cell but if it's not then it would discard that solution, since that wont lead the answer.
+Backtracking is more like a special case of DFS, which works out by ruling out the situations, early on, that won't yield a result, while in the situation DFS, won't check for the constraints and keep moving forward.
 
-In a nut shell backtracking works by placing some constraints in place and not working like a crazy maniac.
+Let's imagine this difference in terms of solving <b>Sudoku grids</b>. DFS in this case would be like a crazy maniac who would keep filling all of the squares completely and at the end, if it does not find the solution, then it would discard it entirely and start with some other solution.
 
-#### Why are we discussion maze solving?
+While Backtracking would work smartly by placing some constraint in place, like at each stage, when it fills a number, it would check if the state of the grid is still valid or not, if it is then, it will move on to the next unfilled cell but if it's not then it would discard that solution since that won't lead to the answer.
 
-Well, it turn's out the way dfs works, it can be used for both solving and creating mazes, the only difference being that instead of having a pre-made maze, we would start with a grid full of cells and borders, and then everytime we move from one cell to another we just erase the walls between the two cells, let's not get too ahead of our selves, we will have a look at this afterwards.
+In a nutshell, backtracking works by placing some constraints in place and not working like a crazy maniac.
 
-#### Maze Generation algorithm
+### Why are we discussing maze solving?
 
-This is the algorithm that can be found on wikipedia for maze generation :
+Well, it turns out the way <b>DFS</b> works, it can be used for both solving and creating mazes, the only difference being that instead of having a pre-made maze, we would start with a grid full of cells and borders, and then every time we move from one cell to another we just erase the walls between the two cells, let's not get too ahead of our selves, we will have a look at this afterward.
 
-- Choose the initial cell, mark it as visited and push it to the stack
+### DFS algorithm
+
+- Choose the initial cell, mark it as visited, and push it to the stack
 
 - While the stack is not empty
 
     - Pop a cell from the stack and make it a current cell
 
-    - If the current cell has any neighbours which have not been visited
+    - If the current cell has any neighbors  which have not been visited
 
         - Push the current cell to the stack
 
-        - Choose one of the unvisited neighbours
+        - Choose one of the unvisited neighbors 
+
+        - Mark the chosen cell as visited and push it to the stack
+
+### Maze Generation Algorithm
+
+Maze Generation is one of the applications of the DFS algorithm, here we randomly choose the next node, to be visited, and every time we randomly choose a neighbors, we just remove the walls between the two nodes and hence eventually caving through and generating a maze.
+
+- Choose the initial cell, mark it as visited, and push it to the stack
+
+- While the stack is not empty
+
+    - Pop a cell from the stack and make it a current cell
+
+    - If the current cell has any neighbors  which have not been visited
+
+        - Push the current cell to the stack
+
+        - Choose one of the unvisited neighbors 
 
         - Remove the wall between the current cell and the chosen cell
 
         - Mark the chosen cell as visited and push it to the stack
 
-One might think that, why are we studying dfs or backtracking, if we already have an algorithm. Well, it turns out that Maze Generation is one of the many applications of the DFS. So, in order to understand the application we need to get a good grasp on the main algorithm itself.
-
 ## Intuition
 <hr class="separator">
 
-Now that we know what DFS and Backtracking are, let's try to build a small intuition for their working as to how they work and transverse through a graph / tree. And then we will see how we can use the same thing for producing mazes.
+Now that we know what Algorithms mean, let's try to build a small intuition for their working as to how they work and transverse through a graph/tree. And then we will see how we can use the same thing for producing mazes.
 
 ### Assumptions
 
-Before we actually start with the explanations, to make things easier let's place a few assumptions in place :
+Before we start with the explanations, to make things easier let's place a few assumptions in place :
 
-- If we carefully look at the maze we can say that a maze can be easily represented as a graph were every maze cell would be an equivalent to graph node.
+- If we carefully look at the maze we can say that a maze can be easily represented as a graph were every maze cell would be an equivalent to a graph node.
 
-- We also assume that the dimensions of the maze are of 3x3.
+- We assume that the dimensions of the maze are 3x3.
 
-- To actually remember the path, we are going to store it into a stack, we choose a stack cause it's mechanism makes it earier for us to retrace back.
+- To remember the visited cells, we are going to store it into a stack, we choose a stack cause it's mechanism makes it easier for us to retrace back.
 
-- We also assume that the graph is un-weighted.
+- We also assume that the graph is unweighted and undirected.
+
+### Step Wise understanding of DFS Algorithm
+<br>
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/labelled.png" /></div>
-<div class="rightText"><p><b>Step 1</b><br><br>Just to get familiar with graphs, here is a simple 3x3 graph with the nodes represented as grey colored boxes and each nodes is connected to some other node using blue lines also called <b>Edges</b><br><br>We are also going to represent different states of nodes using colours<br>
+<div class="rightText"><p><b>Step 1</b><br><br>Just to get familiar with graphs, here is a simple 3x3 graph with the nodes represented as grey colored boxes where each node is connected to some other node using blue lines, also called <b>Edges</b>.<br><br>We are also going to represent different states of nodes using colors<br>
 <ul>
-    <li><b>non visited node</b> : colourless</li>
-    <li><b>visited node</b> : green color</li>
-    <li><b>current node</b> : orange color</li>
-    <li><b>possible neighbours</b> : blue color</li>
+    <li><b>Non visited node</b>: Colourless</li>
+    <li><b>Visited node</b>: Green color</li>
+    <li><b>Current node</b>: Orange color</li>
+    <li><b>Possible neighbors</b>: Blue color</li>
 </ul>
 </p></div>
 </div>
@@ -134,158 +159,160 @@ Before we actually start with the explanations, to make things easier let's plac
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide1.png" /></div>
-<div class="leftText"><p><b>Step 2</b><br><br>This is the initial state of the graph were we haven't visited any of the nodes yet.</p></div>
+<div class="leftText"><p><b>Step 2</b><br><br>This is the initial state of the graph where we haven't visited any of the nodes yet.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide2.png" /></div>
-<div class="rightText"><p><b>Step 3</b><br><br>We start our journey of transversal at the top left corner of the graph, we mark the node 1 as visited, push it to the stack, and make it our current cell.</p></div>
+<div class="rightText"><p><b>Step 3</b><br><br>We start our journey of transversal, at the top left corner of the graph, we mark the node 1 as visited, push it to the stack, and make it our current cell.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide3.png" /></div>
-<div class="leftText"><p><b>Step 4</b><br><br>Now it's time to choose the next node, our current node has two possible neighbours, those are node 2 and node 4, which are represented by blue color. We can choose any one of the possible neighbours randomly.</p></div>
+<div class="leftText"><p><b>Step 4</b><br><br>Now it's time to choose the next node, our current node has two possible neighbors, those are node 2 and node 4, which are represented by blue color. We can choose any one of the possible neighbors randomly.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide4.png" /></div>
-<div class="rightText"><p><b>Step 5</b><br><br>We chose the node 2 as the next node, so we move from node 1 to node 2, and hence marking the node 2 visited and making it our current cell</p></div>
+<div class="rightText"><p><b>Step 5</b><br><br>We chose the node 2 as the next node, so we moved from node 1 to node 2, marked it as visited, pushed it to the stack, and made it our current cell</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide5.png" /></div>
-<div class="leftText"><p><b>Step 6</b><br><br>Now we are currently at node 2, we check the possible neighbours that the node 2 has. The node 2 has two possible neighbours, node 3 and node 5. We can choose any one of those neighbours randomly.</p></div>
+<div class="leftText"><p><b>Step 6</b><br><br>Now, we are currently at node 2, we check the possible neighbors that node 2 has. The node 2, has two possible neighbors, node 3 and node 5. We can choose any one of those neighbors randomly.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide6.png" /></div>
-<div class="rightText"><p><b>Step 7</b><br><br>Here we just randomly chose node 5 as our next node and hence we marked it as visited, pushed it to stack and made it our current cell.</p></div>
+<div class="rightText"><p><b>Step 7</b><br><br>Here we just randomly chose node 5 as our next node and hence we marked it as visited, pushed it to stack, and made it our current cell.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide7.png" /></div>
-<div class="leftText"><p><b>Step 8</b><br><br>Here we check the possible neighbours for the node 5, our current node, and it has 3 possible neighbours, node 6, node 4, node 8. We can choose any one of the possible neighbours randomly.</p></div>
+<div class="leftText"><p><b>Step 8</b><br><br>Here we check the possible neighbors for node 5, our current node, and it has 3 possible neighbors, node 6, node 4, and node 8. We can choose any one of the possible neighbors randomly.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide8.png" /></div>
-<div class="rightText"><p><b>Step 9</b><br><br>We chose the node 8 as the next node, and hence we marked it as visited, pushed it to the stack and made it our current node.</p></div>
+<div class="rightText"><p><b>Step 9</b><br><br>We chose node 8 as the next node, and hence we marked it as visited, pushed it to the stack, and made it our current node.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide9.png" /></div>
-<div class="leftText"><p><b>Step 10</b><br><br>Here we check the possible neighbours for the node 8, it has 2 possible neighbours, node 9 and node 7.</p></div>
+<div class="leftText"><p><b>Step 10</b><br><br>Here we check the possible neighbours for node 8, it has 2 possible neighbors, node 9 and node 7.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide10.png" /></div>
-<div class="rightText"><p><b>Step 11</b><br><br>We randomly choose the node 7 as the next node and we marked it as visited, pushed it to the stack and made it our current node.</p></div>
+<div class="rightText"><p><b>Step 11</b><br><br>We randomly choose node 7 as the next node and we marked it as visited, pushed it to the stack, and made it our current node.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide11.png" /></div>
-<div class="leftText"><p><b>Step 12</b><br><br>We check the possible neighbours for node 7 and it turns out that it has only one neighbour node, node 4.</p></div>
+<div class="leftText"><p><b>Step 12</b><br><br>We check the possible neighbors for node 7 and it turns out that it has only one neighbor node, node 4.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide12.png" /></div>
-<div class="rightText"><p><b>Step 13</b><br><br>Since we don't have any other option we chose the node 4, marked it as visited, pushed it to stack and made it our current node.</p></div>
+<div class="rightText"><p><b>Step 13</b><br><br>Since we don't have any other option we chose node 4, marked it as visited, pushed it to stack, and made it our current node.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide13.png" /></div>
-<div class="leftText"><p><b>Step 14</b><br><br>Now, here is the thing, we were previously at the node 4 which had no possible neighbours, cause all of it's possible neighbours were visited, which is kind of like a dead end, with the context of our analogy, so we just retrace our steps back until we find a node / intersection which has a set of unvisited nodes and that is why we move back to node 7</p></div>
+<div class="leftText"><p><b>Step 14</b><br><br>Now, here is the thing, we previously were at node 4, and it did not have any unvisited neighbors, which is just like a dead-end, so instead of just stopping there, we retrace our path by popping the 4.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide14.png" /></div>
-<div class="rightText"><p><b>Step 15</b><br><br>We do the same thing at node 7, since even node 7 does not has any unvisited neighbours, we keep retracing back and we move to node 8.</p></div>
+<div class="rightText"><p><b>Step 15</b><br><br>We were previously at node 7, it had no unvisited neighbors, which is again like a dead end so, instead of just standing there we just retrace back by popping the node 7.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide15.png" /></div>
-<div class="leftText"><p><b>Step 16</b>We check the possible neighbours for node 8 and it has 1 possible node that is node 9 that has not been visited yet.</p></div>
+<div class="leftText"><p><b>Step 16</b><br><br>We check the possible neighbors for node 8 and it has 1 possible node that is node 9 that has not been visited yet.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide16.png" /></div>
-<div class="rightText"><p><b>Step 17</b>In this step we move to that one possible node, node 9, mark it as visited, push it to the stack and make it our current cell</p></div>
+<div class="rightText"><p><b>Step 17</b><br><br>In this step we move to that one possible node, node 9, mark it as visited, push it to the stack and make it our current cell</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide17.png" /></div>
-<div class="leftText"><p><b>Step 18</b>We check the possible neighbours for the node 6 and it turns out that this node has one possible neigbour.</p></div>
+<div class="leftText"><p><b>Step 18</b><br><br>We check the possible neighbors for node 6 and it turns out that this node has one possible neighbor.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide18.png" /></div>
-<div class="rightText"><p><b>Step 19</b>We move to that one possible neighbour, push it to the stack, mark it as visited and make it our current cell.</p></div>
+<div class="rightText"><p><b>Step 19</b><br><br>We move to that one possible neighbor, push it to the stack, mark it as visited , and make it our current cell.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide19.png" /></div>
-<div class="leftText"><p><b>Step 20</b>We check the possible neighbours for the current cell and it turns our this node has only one possible neighbour cell and that is node 3.</p></div>
+<div class="leftText"><p><b>Step 20</b><br><br>We check the possible neighbors for the current cell and it turns our this node has only one possible neighbor cell and that is node 3.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide20.png" /></div>
-<div class="rightText"><p><b>Step 21</b>We mark the only neigbour that is node 3 as visited, push it to the stack and make it our current cell.</p></div>
+<div class="rightText"><p><b>Step 21</b><br><br>We mark the only neighbor that is node 3 as visited, push it to the stack, and make it our current cell.</p></div>
 </div>
 
 <br style="clear:both" />
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide21.png" /></div>
-<div class="leftText"><p><b>Step 21</b>We could technically stop here, since we have transversed all over the maze, but we don't keep a countt of the visited nodes, so what the maze-geenration algorithm will do is it will automatically pop all of the pushed nodes, and eventually making it empty.</p></div>
+<div class="leftText"><p><b>Step 22</b><br><br>We could technically stop here, and we know that because we can see that, but the computer does not know that it has transversed everything, in fact it does not understand any of this. So according to the algorithm design, it will keep popping the nodes, and searching for unvisited nodes at each step, and eventually, the stack would become empty. It works this way, so that every node is visited.</p></div>
 </div>
 
 <br style="clear:both" />
 <div>
 <div class="leftImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/slide22.png" /></div>
-<div class="rightText"><p><b>Step 21</b>And this is the final result. We have visited all of the nodes.</p></div>
+<div class="rightText"><p><b>Step 23</b><br><br>And this is the final result. We have visited all of the nodes.</p></div>
 </div>
 
 <br style="clear:both" />
 
-Now some of you might question, how would this generate a maze, and the answer to the question is, that every time we move from one node to the other we remove the walls between the two nodes, doing this for every node change should eventually result in a maze.
+### DFS Application as Maze Generation
+
+Now, that we are done with the <b>DFS</b> algorithm, let's move to the Maze Generation algorithm. Since, it's just an application of the actual DFS algorithm, nothing much changes. Apart from the fact that every time we move from one node to another we just remove the walls between the two nodes. Hence caving through, eventually resulting in a maze.
 
 <br style="clear:both" />
 <div>
@@ -297,17 +324,17 @@ Now some of you might question, how would this generate a maze, and the answer t
 
 <div>
 <div class="rightImage"><img class="bigImage" src="/assets/images/series/maze-generator/ep1/dfs_intuition/grid_3.png" /></div>
-<div class="leftText"><p>This is the final result of transversing through the grid using DFS algorithm and every time we move from a node to some other node we remove the walls between the two nodes.</p></div>
+<div class="leftText"><br><br><br><p>Here is the final result of implementing the Maze Generation Algorithm.</p></div>
 </div>
 
 <br style="clear:both" />
+
 ## Programming
 <hr class="separator">
 
-
 ### Optimizations
 
-We can immedietly think that since a maze is two dimensional object, that is, a grid and the grid has cells, and all of those cells have similar properties like, if the cell has been visited or not, the list of walls that the cells has, and the coordinates of the cell that we are currently working with, and one might suggest that we can create a <code>class Cell</code> and then create a two dimensional array out of the cell class.
+We can immediately think that since a maze is a two-dimensional object, that is, a grid and the grid has cells, and all of those cells have similar properties like, if the cell has been visited or not, the list of walls that the cells have, and the coordinates of the cell that we are currently working with, and one might suggest that we can create a <span class="badge badge-dark">Cell</span> class and then create a two-dimensional array out of the cell class.
 
 So we would end up with a class something like this:
 
@@ -319,14 +346,14 @@ So we would end up with a class something like this:
     	
     	bool visited;
     
-    	bool walls={true,true,true,true};
+    	bool walls={true,true,true,true}; // top, right, bottom, left
 };</code></pre>
 
 This looks great!
 
-But this is not at all memory efficient, let's just throw some numbers in here, to factualize why!, So for a second let's imagine that we want to produce a 10k x 10k grid which means the total cells are around : <b>100000000</b>, and we can then create a 2d grid of out of the cell class like this:
+But this is not at all memory efficient, let's just throw some numbers in here, to actualize why!, So for a second let's imagine that we want to produce a 10k x 10k grid which means the total cells are around: <b>100000000</b>, and we can then create a 2d grid of out of the <span class="badge badge-dark">cell class</span> like this:
 <pre><code class="language-cpp">Cell maze[10000][10000];</code></pre>
-and if we calculate memory required for one cell object that will around : 4 bytes + 4 bytes + 1 byte + 4 bytes, so in total that is around <b>13 bytes</b> for a single cell and for <b>100000000</b> cells it would be around : <b>1300000000</b> or <b>1.3 gb</b> and that is a tonn.
+and if we calculate memory required for one cell object, that will be around: 4 bytes + 4 bytes + 1 byte + 4 bytes, so in total that is around <b>13 bytes</b> for a single cell, and for <b>100000000</b> cells it would be around: <b>1300000000</b> or <b>1.3 GB</b> and that is a ton.
 
 So we need to find a way to reduce the memory consumption for a single cell, which should reduce the overall memory consumption, and this is where  the concept of <b>Bits</b> and <b>Bit masking</b> is extremely useful.
 
@@ -334,11 +361,11 @@ So we need to find a way to reduce the memory consumption for a single cell, whi
 
 A <b>Bit</b> is the smallest unit in the computer world, a single bit can attain only two values either "<b>1</b>" or "<b>0</b>". If a bit is said to be "<b>ON</b>" then the bit has a value of "<b>1</b>" and if a bit is said to be "<b>OFF</b>" then it is said to have a value of "<b>0</b>".
 
-Of course just having sequences of tons of bits is no fun, so to be able to perform operations between different bits we have something called <b>Bitwise Operators</b>.
+Of course, just having sequences of tons of bits is no fun, so to be able to perform operations between different bits we have something called <b>Bitwise Operators</b>.
 
 ##### Bitwise Operators and Operation
 
-Bitwise operators are used to play with bits, that is, if we provide it a decimal number, that is a human readable value, it's gonna take that number and play around with its bits, sounds fun.
+Bitwise operators are used for playing with bits, that is, if we provide it a decimal number, that is a human-readable value, it's gonna take that number and play around with its bits, sounds fun.
 
 We have 6 different bitwise operators, luckily they work exactly like the logical operators.
 
@@ -350,7 +377,7 @@ We have 6 different bitwise operators, luckily they work exactly like the logica
 >> : This bitwise operator shifts the bits to the right by a certain positions.</code></pre>
 and using these bitwise operators we can do tons of useful stuff and optimizations.
 
-<b>Note : </b>The number of bits that we get to play around depends upon the size of data type, that is, a <b>char</b> being <b>1 byte</b>, it's gonna provide us with <b>8 bits</b> to play around, <b>int</b> being <b>4 bytes</b>, it's gonna provide us with <b>32 bits</b> to play around.
+<b>Note: </b>The number of bits that we get to play around depends upon the size of data type, that is, a <b>char</b> being <b>1 byte</b>, it's gonna provide us with <b>8 bits</b> to play around, <b>int</b> being <b>4 bytes</b>, it's gonna provide us with <b>32 bits</b> to play around.
 
 The thing is computers do not understand any of this, they are just good at following orders.
 
@@ -358,9 +385,9 @@ Using the bitwise operators is gonna affect the entire sequence of bits, but wha
 
 ##### Bit Masking
 
-Just as the name says it works by <b>masking</b> / <b>hiding the bits</b> that we do not wanna work with and <b>exposing</b> only the ones that we wanna work with. Using bit masks, with the combination of logical operators, would allow us to change the values of the bits, also help us check if a certain bit is "<b>ON</b>" or "<b>OFF</b>".
+Just as the name says it works by <b>masking</b>/<b>hiding the bits</b> that we do not wanna work with and <b>exposing</b> only the ones that we wanna work with. Using bitmasks, with the combination of logical operators, would allow us to change the values of the bits, also help us check if a certain bit is "<b>ON</b>" or "<b>OFF</b>".
 
-A bit mask generally has the following structure, assuming we are talking about <b>8 bits</b>.
+A bitmask generally has the following structure, assuming we are talking about <b>8 bits</b>.
 
 <pre><code class="language-cpp">00000001 // we refer to this as the mask</code></pre>
 were the bit set to "<b>1</b>" says that " <i>hey this is the position we wanna work with</i> " meaning it kinda exposes that value to changes and the bits set to "<b>0</b>" kinda masks the values, so none of the changes are applied to it.
@@ -390,11 +417,11 @@ value = 00000101</code></pre>
 
 Now that we know what <b>Bits</b>, <b>Bits Masks</b> are, and how we can work on a bit level, let's start with the optimization procedure.
 
-Let's start with the fact that we do not really need to store the coordinates of the cell, we can just find out the neighbouring cells based on the index of the current cell, and since we are using arrays, we already will be having the index of the current cell. Eliminating the co-ordinates would reduce around <b>8 bytes</b>.
+Let's start with the fact that we do not need to store the coordinates of the cell, we can just find out the neighboring cells based on the index of the current cell, and since we are using arrays, we already will be having the index of the current cell. Eliminating the co-ordinates would reduce around <b>8 bytes</b>.
 
-Let's have a look the walls since the walls can attain only two values either "<b>0</b>" or "<b>1</b>", we can directly store them inside a byte as contigious bits and that goes same with the visited parameter, since that too can attain only two values we can also store that with the wall bits.
+Let's have a look the walls since the walls can attain only two values either "<b>0</b>" or "<b>1</b>", we can directly store them inside a byte as contiguous bits and that goes same with the visited parameter since that too can attain only two values we can also store that with the wall bits.
 
-As we read above the number of bits that we get to play with are decided by the data type and since we only need around <b>5 bits</b> we can choose the smallest data type, that is the "<b>unsigned char</b>". This would give us around <b>8 bits</b> to play around, which is more than enough we will only use <b>5 bits</b> per cell for storing the properties.
+As we read above the number of bits that we get to play with is decided by the data type and since we only need around <b>5 bits</b> we can choose the smallest data type, which is the "<b>unsigned char</b>". This would give us around <b>8 bits</b> to play around, which is more than enough we will only use <b>5 bits</b> per cell for storing the properties.
 
 so something like this
 
@@ -408,16 +435,16 @@ unsigned char cell = 0b0000'1111</code></pre>
 
 Now we can just save the state of a particular cell in under 1 byte.
 
-If it's just a single variable using a class for storing the it would be overkill, cause we can directly create an array out of a single variable.
+If it's just a single variable using a class for storing it would be overkill, cause we can directly create an array out of a single variable.
 
 something like this: 
 <pre><code class="language-cpp">unsigned char cell[10000][10000];</code></pre>
-let's calculate the memory usage for this, so <b>100000000</b> cells <b>1 byte</b> each equals to <b>100000000 bytes</b> which is <b>100mb</b> which is a lot lot better than the <b>1.3 gb</b> memory usage.
+let's calculate the memory usage for this, so <b>100000000</b> cells <b>1 byte</b> each equals to <b>100000000 bytes</b> which is <b>100mb</b> which is a lot better than the <b>1.3 GB</b> memory usage.
 
 There is another optimization we can do, and that is related to the representation of the maze
 
-##### Representation
-We want a grid to work with and that can be done using <b>static</b> 2d array / multi dimensional array but since static array have scope limitations, we need to use <b>dynamic 2d array</b>. But doing this would cause a lot of <b>fragmented memory</b>, which is bad cause it's going to affect the efficiency of our program, cause every new row of the grid would be located at a new location, and to overcome this we can use a <b>dynamic 1d array</b>, we will represent a 2d grid into 1d array :
+#### Representation
+We want a grid to work with and that can be done using <b>static</b> 2d array / multidimensional array but since static array has scope limitations, we need to use <b>dynamic 2d array</b>. But doing this would cause a lot of <b>fragmented memory</b>, which is bad cause it's going to affect the efficiency of our program, cause every new row of the grid would be located at a new location, and to overcome this we can use a <b>dynamic 1d array</b>, we will represent a 2d grid into 1d array :
 
 <pre><code class="language-cpp">
 0  1  2  3       
@@ -445,9 +472,9 @@ This should be enough optimizations for the program and we can start now.
 
 ### Gradient
 
-The gradient that we are using here, is called <b>linear gradient</b>. The way this works is, we start with 100% of color one and 0% of color two, then at every new row, we just reduce the percent of color one by a constant amount, and increase the percent of color two by the same constant amount.
+The gradient that we are using here, is called <b>linear Interpolation</b>. The way this works is, we start with 100% of color one and 0% of color two, then at every new row, we just reduce the percentage of color one by a constant amount, and increase the percent of color two by the same constant amount.
 
-To be able to have the gradient spread all over the maze from top to bottom, we determine the value of that "<b>constant amount</b>" by divinding 1 by the number of rows 
+To be able to have the gradient spread all over the maze from top to bottom, we determine the value of that "<b>constant amount</b>" by dividing the initial percent by the number of rows 
 
 The mathematical version of this is : 
 
@@ -466,7 +493,7 @@ go through each row:
 // all cells in row 2 would be : 67% color one and 33% color two
 // all cells in row 3 would be : 34%% color one and 66% color two
 // of course the more the rows the cleaner the gradient
-// one can also apply the same method 
+// one can also apply the same method to pixels instead of the cells, to get a beautiful gradient at any dimension.
 </code></pre>
 
 ### File Structure
@@ -539,11 +566,11 @@ uint64_t Helper::xorshift128p(struct xorshift128p_state *state)
 	return (t + s);
 }</code></pre>
 
-The way this file works is that as soon as we create an <b>object</b> of the class Helper, it calls the <b>constructor</b> which then randomizes the states / input values of random number generator. Then every time we want to generate a random number, we just have to call the xorshift128p() and we just have to pass those states to that function, then that function generates a random value based upon the passed states / input values, with the help of bitwise operations, and it updates old state with new values.
+The way this file works is that as soon as we create an <b>object</b> of the <span class="badge badge-dark">class Helper</span>, it invokes the <b>constructor</b> which then randomizes the states/input values of the random number generator. Then every time we want to generate a random number, we just have to call the <span class="badge badge-dark">xorshift128p()</span> and we just have to pass those states to that function, then that function generates a random value based upon the passed states/input values, with the help of bitwise operations, and it updates the old state with new values.
 
-So, in a nut shell this works by producing random values based upon states, and since using the same states would produce same random number, it just re-populates the old states with somekind of new value and uses those new states for producing another new random number, this updation of states occcurs every time we call the xorshift128p().
+So, in a nutshell, this works by producing random values based upon states, and since using the same states would produce the same random number, it just re-populates the old states with some kind of new value and uses those new states for producing another new random number, this updating of states occurs every time we call the <span class="badge badge-dark">xorshift128p()</span>.
 
-Now let's start with another file called <b>Features</b> file. The sole puporse of this file is going to be holding all of the necessary data regarding the <b>dimensions and apperance</b> of the maze, so just in case if we need to use the data regarding anything related to <b>dimensions / appearance</b>, we will be able to access it in one place.
+Now let's start with another file called the <b>Features</b> file. The sole purpose of this file is going to be holding all of the necessary data regarding the <b>dimensions and appearance</b> of the maze, so just in case if we need to use the data regarding anything related to <b>dimensions/appearance</b>, we will be able to access it in one place.
 
 ##### Features file
 
@@ -575,7 +602,7 @@ feature.height=500;
 .
 .</code></pre>
 
-As mentioned in the above <b>optimization sections</b>, working at a bit level is going to help us make our application effiecient. So we are going to use all of the concepts that we discussed in the said section.
+As mentioned in the above <b>optimization sections</b>, working at a bit level is going to help us make our application efficient. So we are going to use all of the concepts that we discussed in the said section.
 
 We are going to create a file called masking which will hold all of the data related to the masks for using them with bits.
 
@@ -586,20 +613,27 @@ const unsigned char bottomMask = 0b0000'0100;
 const unsigned char leftMask = 0b0000'1000;
 const unsigned char visitedMask = 0b0001'0000;</code></pre>
 
-We are also going to create a file called image, that will help us with the saving of image, given that we pass it the array of type <b>unsigned char</b> with binary values. But since this tutorial is about maze generation and not about maze saving, we are not going to discuss it here, but you can find the code for the funtion on the github.
+We are also going to create a file called image, that will help us with the saving of image, given that we pass it the array of type <b>unsigned char</b> with binary values. But since this tutorial is about maze generation and not about maze saving, we are not going to discuss it here, but you can find the code for the function on the Github.
 
-Now, it's time to create the most important file, that is in fact the <b>heart</b> of the program.
+Now, it's time to create the most important file, that is the <b>heart</b> of the program.
 
 This file is divided into 4 sections : 
-- The first section sets the user defined features to the maze.
-- The second section uses DFS algorithm to generate mazes.
-- The third section generates the graphics, if needed.
+- The first section sets the user-defined features to the maze.
+- The second section uses the DFS algorithm to generate mazes.
+- The third section generates graphics if needed.
 - The fourth section acts as a control for calling various functions.
 
 Something like this : 
 
 ##### Maze File
-<pre><code class="language-cpp">class Maze
+<pre><code class="language-cpp">enum Mode
+{
+    ANIMATE=1,
+    IMAGE=-1,
+    DISPLAY=0,
+};
+
+class Maze
 {
     private:
         vector&lt;unsigned char&gt; maze;
@@ -617,7 +651,7 @@ Something like this :
        
         //******************************DFS Section******************************
         void checkNeighbour(int current);
-        void dfsBacktrack();
+        void dfs();
         //***********************************************************************
 
         //******************************Graphics Section*************************
@@ -635,7 +669,7 @@ Something like this :
         //***********************************************************************
 };</code></pre>
 
-The first function here that will be called is the <mark>setFeatures()</mark>, this function would receive the feature object that the <b>user</b> has <b>populated</b> and it will set the features to the maze.
+The first function here that will be called is the <span class="badge badge-dark">setFeatures()</span>, this function would receive the feature object that the <b>user</b> has <b>populated</b> and it will set the features to the maze.
 
 <pre><code class="language-cpp">void Maze::setFeatures(const Feature &feature)
 {
@@ -644,7 +678,7 @@ The first function here that will be called is the <mark>setFeatures()</mark>, t
     f.cols=f.width/f.cellSize;
 }</code></pre>
 
-Then the next function that the user will call is the <code>createMaze()</code>
+Then the next function that the user will call is the <span class="badge badge-dark">createMaze()</span>
 
 <pre><code class="language-cpp">void Maze::createMaze(string windowName)
 {
@@ -655,20 +689,20 @@ Then the next function that the user will call is the <code>createMaze()</code>
 
     externalLimit=(f.rows*f.cols)-1;
 
-    if(f.animate==-1)
+    if(f.animate==IMAGE)
     {   
-        dfsBacktrack(); 
+        dfs(); 
         image.saveImage("love_testing.png",maze,f);
     }
-    else if(f.animate==0)
+    else if(f.animate==DISPLAY)
     {
         sf::RenderWindow window;
-        dfsBacktrack();
+        dfs();
         createVertexArray(1);
         drawWindow(window,windowName);
         image.saveImage("love_testing.png",maze,f);
     }
-    else if(f.animate==1)
+    else if(f.animate==ANIMATE)
     {
         sf::RenderWindow window;
         createVertexArray(1);
@@ -680,7 +714,7 @@ Then the next function that the user will call is the <code>createMaze()</code>
     vector&lt;unsigned char&gt;().swap(maze);
 }</code></pre>
 
-This function would then in turn called another function called <code>initialiaze()</code>, this initialize function would then resize all of the necessary containers.
+This function would then in turn called another function called <span class="badge badge-dark">initialiaze()</span>, this initialize function would then resize all of the necessary containers.
 
 <pre><code class="language-cpp"> try 
 {
@@ -692,7 +726,7 @@ catch (const std::bad_alloc&)
     cout<<"error in initializing the array";
 }
 
-if(f.animate!=-1)
+if(f.animate!=IMAGE)
 {
     quad.setPrimitiveType(sf::Quads);   // this is related to graphics
     border.setPrimitiveType(sf::Lines); // this is related to graphics
@@ -701,16 +735,16 @@ if(f.animate!=-1)
     border.resize(8*f.rows*f.cols);     // this is related to graphics
 }</code></pre>
 
-Once the <code>initialize()</code> is done executing, we resume the createMaze(), it then marks a starting point for transversal, here we choose the first cell as the starting point using the following statements
+Once the <span class="badge badge-dark">initialize()</span> is done executing, we resume the <span class="badge badge-dark">createMaze()</span>, it then marks a starting point for transversal, here we choose the first cell as the starting point using the following statements
 
 <pre><code class="language-cpp">maze[0] |= visitedMask; // we marked it as visited by turning the visited bit on using bitwise operators
 backtrack.push_back(0); // we make a note of it by pushing it to the stack.</code></pre>
 
-Now let's talk about the dfs function(), we'll have a look at the various modes later.
+Now let's talk about the <span class="badge badge-dark">dfs()</span>, we'll have a look at the various modes later.
 
-<pre><code class="language-cpp">void Maze::dfsBacktrack()
+<pre><code class="language-cpp">void Maze::dfs()
 {
-    if(f.animate!=1)
+    if(f.mode!=ANIMATE)
     {
         int current;
          
@@ -723,7 +757,7 @@ Now let's talk about the dfs function(), we'll have a look at the various modes 
         
         }
     }
-    else if(f.animate==1 && !backtrack.empty())
+    else if(f.mode==ANIMATE && !backtrack.empty())
     {
         int current=backtrack.back();
         backtrack.pop_back();
@@ -732,15 +766,15 @@ Now let's talk about the dfs function(), we'll have a look at the various modes 
     }
 }</code></pre>
 
-This function first checks what mode is currently set, if it's <b>not</b> visualization, it just performs the entire dfs algorithm in <b>one step</b> and updates the maze data holder accordingly. At each <b>iteration</b> of the algorithm it checks if the stack, that it is using, to store the transversed path, is empty or not, if it is emtpy it just stops the operation, else if it's not it pops the last pushed node and passes it to the check neighbour function. 
+This function first checks what mode is currently set, if it's <b>not</b> animation, it just performs the entire dfs algorithm, in <b>one step</b> and updates the maze data holder accordingly. At each <b>iteration</b> of the algorithm it checks if the stack, that it is using, to store the transversed path, is empty or not, if it is empty it just stops the operation, else if it's not it pops the last pushed node and passes it to the check neighbor  function. 
 
-The checkNeighbour(), then check if the passed node has any neighbour that has not been visited yet, if it does, then it makes a list of all such neighbours and chooses a <b>random</b> neighbour and pushes the current node back to the stack and the next randomly choosen neighbour. If it does not find any neighbour then it just does nothing. 
+The <span class="badge badge-dark">checkNeighbour()</span>, then check if the passed node has any neighbor that has not been visited yet, if it does, then it makes a list of all such neighbors and chooses a <b>random</b> neighbor and pushes the current node back to the stack and the next randomly chosen neighbor. If it does not find any neighbor then it just does nothing. 
 
-Let's pause here for a second and have a look how it smartly retraces back. If the current node does not has any neighbours, then it should be be autmatically removed from the stack and the previous node should be examined, just as we saw in the intuition, and this is exactly what the function does, it before calling the function it first pops the current node and only pushes it back if it has any unvisited nodes else it does not, which is kind of like a automatic retracing.
+Let's pause here for a second and have a look at how it smartly retraces back. If the current node does not have any neighbors, then it should be automatically removed from the stack and the previous node should be examined, just as we saw in the intuition, and this is exactly what the function does, it before calling the function it first pops the current node and only pushes it back if it has any unvisited nodes else it does not, which is kind of like an automatic retracing.
 
-and this is how the mode -1 works, it calls the dfs() and since the mode is set to -1, which means it's not visualization, it performs the entire dfs algorithm in one step and then we call and pass the maze, data holder, to the imagesave(), which then proceeds to save the image as a <b>png file</b>.
+and this is how the mode IMAGE works, it calls the <span class="badge badge-dark">dfs()</span> and since the mode is set to IMAGE, which means it's not animate mode, it performs the entire dfs algorithm in one step and then we call and pass the maze, data holder, to the imagesave(), which then proceeds to save the image as a <b>png file</b>.
 
-Now let's talk about mode 0, this one works exactly like mode -1, except for the fact that we also need to display the maze graphically on the screen. So, in this case we just call two extra functions called createVertexArray() and drawWindow(), what these functions do is first the createvertexarray() converts the maze data, that is the maze generated by the dfs algorithm, to graphical data through vertex Arrays and that drawWindow() keeps drawing the created vertexArray on the screen.
+Now let's talk about mode DISPLAY, this one works exactly like mode IMAGE, except for the fact that we also need to display the maze graphically on the screen. So, in this case, we just call two extra functions called <span class="badge badge-dark">createVertexArray()</span> and <span class="badge badge-dark">drawWindow()</span>, what these functions do is first the <span class="badge badge-dark">createvertexarray()</span> converts the maze data, that is the maze generated by the dfs algorithm, to graphical data through vertex Arrays and the <span class="badge badge-dark">drawWindow()</span> keeps drawing the created vertex array on the screen.
 
 <pre><code class="language-cpp">void Maze::createVertexArray(int explicitCheck)
 {
@@ -818,10 +852,9 @@ Now let's talk about mode 0, this one works exactly like mode -1, except for the
     }
 }</code></pre>
 
+This function loops through every cell of the maze and converts all of the mathematical data to something graphical and it also checks if the cell is visited or not, if it is then it paints it with the user-defined color else it paints with a mathematically generated gradient between two colors specified by the user, the other thing it does that for each cell it invokes a function called <span class="badge badge-dark">handleborder()</span>, this function checks which of the border exists and which of them don't and it paints the border with user-specified border color and transparent color respectively.
 
-This function loops through every cell of the maze and converts all of the mathematical data to  something that is graphical and it also check if the cell is visited or not, if it is then it paints it with the user defined color else it paints with a mathemcatially generated gradient between two colors specified by the user, we will talk about this gradient thingy in a few minutes, the other thing it does that for each cell it invokes a function called handleborder, this function checks which of the border exists and which of them dont and it paints the border with user specified border color and transparent color respectively.
-
-This is the handleborder()
+This is the <span class="badge badge-dark">handleborder()</span>
 
 <pre><code class="language-cpp">void Maze::handleBorder(int borderCounter,int x,int y,int value)
 {
@@ -877,7 +910,7 @@ This is the handleborder()
     }
 }</code></pre>
 
-and the drawWindow() looks like this:
+and the <span class="badge badge-dark">drawWindow()</span> looks like this:
 
 <pre><code class="language-cpp">void Maze::drawWindow(sf::RenderWindow &window,string windowName)
 {
@@ -904,7 +937,7 @@ and the drawWindow() looks like this:
 
             if(f.animate)
             {
-                dfsBacktrack();
+                dfs();
                 createVertexArray(-1);
                 if(!backtrack.empty())
                 {
@@ -930,13 +963,13 @@ and the drawWindow() looks like this:
       }
 }</code></pre>
 
-It just creates a window and keeps running it until the user closes it, and for each frame it just keeps drawing the said vertex arrays as soon as the user hits the close button the said maze vector is passed to the saveimage function which then proceeds to save this mathematical data as an png image.
+It just creates a window and keeps running it until the user closes it, and for each frame, it just keeps drawing the said vertex arrays and as soon as the user hits the close button the said <b>maze vector</b> is passed to the <span class="badge badge-dark">saveimage()</span> which then proceeds to save this mathematical data as a <b>png</b> image.
 
-Now let's move to the visualization mode, creating this mode is just a matter of adding a few if else statements, this works exactly like the mode 0, except for the fact that instead of performing the entire dfs in one step we do it per frame, meaning we call the dfs function every frame, which means the vectro maze is being updated every frame which means we also need to update the vertex data for each frame, which can be done by calling the dfs() and createVertexArray() for each frame.
+Now let's move to the ANIMATE mode, coding this mode is just a matter of adding a few <span class="badge badge-dark">if-else</span> statements, this works exactly like the mode DISPLAY, except for the fact that instead of performing the entire dfs in one step we do it per frame, meaning we call the dfs function every frame, which also means that the vector maze is being updated every frame, which then means that we need to update the vertex data for each frame, which can be done by calling the <span class="badge badge-dark">dfs()</span> and <span class="badge badge-dark">createVertexArray()</span> for each frame.
 
-But imagine this the first frame is going to be a grid full of cells, each having all of its walls, and then every frame we just either pop or push either a single cell, which meaning we don't have to go through the entire maze and create a new vertex array, instead we can just update the only data that has been changed between the current and the last frame, and this can be dont easily by adding a if else statement in the vertex array and that is the solve purpose of if(explicitcheck==1) in the createVertexArray(), it checks if the mode is visualization or not if it is then it just updates the only data that has been changed between two frames else if it's not it and the dfs() won't even be called in the draw window(), since in the other two modes the dfs will be performed in one step and it will be just a matter of displaying it on the users screen.
+But imagine this, the first frame, of graphics, is going to be a grid full of cells, each having all of its walls, and then every other frame,after the first frame, we just either pop or push either a single cell, which means we don't have to go through the entire maze and create a new vertex array for every frame, instead we can just update the only data that has been changed between the current and the last frame, and this can be done easily by adding an if-else statement in the vertex array and that is the sole purpose of <span class="badge badge-dark">if(explicitcheck==1)</span> in the <span class="badge badge-dark">createVertexArray()</span>, it checks if the mode is a ANIMATE or not if it is then it just updates the only data that has been changed between two frames else if it's not it, the <span class="badge badge-dark">createVertexArray()</span> and the <span class="badge badge-dark">dfs()</span> won't even be called in the <span class="badge badge-dark">drawWindow()</span>, since in the other two modes the dfs will be performed in one step and it will be just a matter of displaying it on the user's screen.
 
-and finally this is what the main control for the entire program would look like
+and finally, this is what the main control for the entire program looks like
 
 <pre><code class="language-cpp">int main()
 {
@@ -965,4 +998,18 @@ and finally this is what the main control for the entire program would look like
     return 0;
 }</code></pre>
 
-The user has just to populate the feature object and then set the features to the maze and start the process of maze generation through createMaze();
+The user has just to populate the feature object and then set the features to the maze, using the <span class="badge badge-dark">setFeatures()</span> and start the process of maze generation through <span class="badge badge-dark">createMaze()</span>
+
+And that is it, this was the entire process of creating a maze generation program with tons of customization features.
+
+To summarize, what we learned :
+
+- We first started with an analogy of solving a maze.
+- We then stated the analogy in a slightly more computeristic language.
+- We then had a look at the important algorithms like DFS, Backtracking.
+- We then learned how maze generation is just an application of DFS.
+- We then learned about the DFS algorithm in deep with the help of diagrams.
+- Then we represented a diagram of how we can apply DFS for maze generation.
+- Then we moved to the programming section, in this section, before starting the implementations, we learned how we can optimize the program.
+- Then we implemented the actual program, starting with the smaller helper files and then with the most important file, that is the file responsible for rendering and generating mazes.
+- And in addition to this we also learned something called as "<b>Linear Interpolation</b>".
