@@ -290,19 +290,19 @@ ul.custom li.summary:before { content: "3. "; } */
 
  .leftImage
   {
-    width:100%;
+    width:50%;
     float:clear;
   }
   
   .rightImage
   {
-    width:100%;
+    width:50%;
     float:clear;
   }
   
   .leftText
   {
-    width:100%;
+    width:50%;
     padding:5px;
     float:clear;
   }
@@ -310,7 +310,7 @@ ul.custom li.summary:before { content: "3. "; } */
   .rightText
   {
     vertical-align: middle;
-    width:100%;
+    width:50%;
     padding:5px;
     float:clear;
   }
