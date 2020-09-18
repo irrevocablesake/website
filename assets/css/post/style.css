@@ -278,7 +278,8 @@ ul.custom li.summary:before { content: "3. "; } */
     padding-top:5px;
     color:rgb(82, 82, 82);
     padding-bottom:5px;
-  }  
+  }
+  
 }
 
 @media screen and (max-width:1069px)
