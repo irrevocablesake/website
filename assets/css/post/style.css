@@ -279,7 +279,32 @@ ul.custom li.summary:before { content: "3. "; } */
     color:rgb(82, 82, 82);
     padding-bottom:5px;
   }
+  .leftImage
+  {
+    width:100%;
+    float:clear;
+  }
   
+  .rightImage
+  {
+    width:100%;
+    float:clear;
+  }
+  
+  .leftText
+  {
+    width:100%;
+    padding:5px;
+    float:clear;
+  }
+  
+  .rightText
+  {
+    vertical-align: middle;
+    width:100%;
+    padding:5px;
+    float:clear;
+  }
 }
 
 @media screen and (max-width:1069px)
