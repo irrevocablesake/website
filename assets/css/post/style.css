@@ -503,7 +503,7 @@ ul.custom li.summary:before { content: "3. "; } */
   .contentSection p{
     font-size:1.4rem !important;
     line-height:29px;
-    font-weight:500;
+    font-weight:400 !important;
     padding-top:5px;
     color:rgb(82, 82, 82);
     padding-bottom:5px;
