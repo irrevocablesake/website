@@ -261,6 +261,41 @@ ul.custom li.summary:before { content: "3. "; } */
       text-align: center;
       width:47%;
     }
+@media screen and ( max-width:480px )
+{
+  .contentSection h2{
+    padding-top:5%;
+    font-weight:800;
+    font-size:2rem;
+  }
+  
+  .contentSection h3{
+    padding-top:8%;
+    font-weight:800;
+    font-size:1.7rem;
+  }
+  
+  .contentSection h4{
+    padding-top:1%;
+    font-weight:700;
+    font-size:1.4rem;
+  }
+  
+  .contentSection h5{
+    padding-top:1%;
+    font-weight:600;
+    font-size:1.2rem;
+  }
+  
+  .contentSection p{
+    font-size:0.95rem !important;
+    line-height:29px;
+    font-weight:500;
+    padding-top:5px;
+    color:rgb(82, 82, 82);
+    padding-bottom:5px;
+  }
+}
 
 @media screen and (max-width:1069px)
 {
