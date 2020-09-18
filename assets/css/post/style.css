@@ -269,10 +269,10 @@ ul.custom li.summary:before { content: "3. "; } */
       width:47%;
     }
 
-@media screen and ( max-width:650px )
+@media screen and ( max-width:700px )
 {
   .contentSection p{
-    font-size:1rem !important;
+    font-size:0.95rem !important;
   }
   .leftImage
   {
