@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://theirrevocablesake.com/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/article.html</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/subscribe.html</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/blog/series/maze-generator/ep1/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/tags/maze/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/tags/dfs/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/tags/programming/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/blog/series/welcome-to-the-world-of-neural-networks/ep1/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/tags/history/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/tags/ai/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://theirrevocablesake.com/tags/neural-networks/</loc>
+  <lastmod>2020-09-19T04:14:56+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
