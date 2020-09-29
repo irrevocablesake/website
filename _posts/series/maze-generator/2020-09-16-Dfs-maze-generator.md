@@ -982,7 +982,7 @@ and finally, this is what the main control for the entire program looks like
     
     Feature feature;
 
-    feature.animate=0;
+    feature.animate=ANIMATE;
     feature.fps=0;
     feature.width=500;
     feature.height=500;
